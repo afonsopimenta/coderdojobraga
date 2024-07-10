@@ -40,5 +40,5 @@ export const signInAction = async (formData: FormData) => {
     sessionCookie.attributes,
   );
 
-  redirect("/");
+  redirect("/dashboard");
 };
