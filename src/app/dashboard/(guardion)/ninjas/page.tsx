@@ -1,18 +1,19 @@
-import { validateRequest } from "~/server/auth";
-import { createNinjaAction } from "./actions";
 import { redirect } from "next/navigation";
-import { db } from "~/server/db";
 import { eq } from "drizzle-orm";
+
+import { validateRequest } from "~/server/auth";
+import { db } from "~/server/db";
 import { ninjas } from "~/server/db/schema";
+import { createNinjaAction } from "./actions";
 
 const NinjasPage = async () => {
   const { user } = await validateRequest();
-  if (!user) redirect("/sign-in")
+  if (!user) redirect("/sign-in");
 
-  const createNinjaActionWithGuardionId = createNinjaAction.bind(null, user.id)
-    
+  const createNinjaActionWithGuardionId = createNinjaAction.bind(null, user.id);
+
   const guardionNinjas = await db.query.ninjas.findMany({
-    where: eq(ninjas.guardionId, user.id)
+    where: eq(ninjas.guardionId, user.id),
   });
 
   return (
@@ -21,12 +22,23 @@ const NinjasPage = async () => {
         <h2>Registar ninja</h2>
         <form action={createNinjaActionWithGuardionId} className="space-y-2">
           <label htmlFor="name">Nome</label>
-          <input name="name" id="name" className="ml-2 border border-zinc-300" />
+          <input
+            name="name"
+            id="name"
+            className="ml-2 border border-zinc-300"
+          />
           <br />
           <label htmlFor="age">Idade</label>
-          <input type="number" name="age" id="age" className="ml-2 border border-zinc-300" />
+          <input
+            type="number"
+            name="age"
+            id="age"
+            className="ml-2 border border-zinc-300"
+          />
           <br />
-          <button type="submit" className="bg-zinc-300 px-2 py-1">Registar</button>
+          <button type="submit" className="bg-zinc-300 px-2 py-1">
+            Registar
+          </button>
         </form>
       </div>
       <div className="space-y-2">

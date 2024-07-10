@@ -1,5 +1,11 @@
 import { relations } from "drizzle-orm";
-import { integer, pgTableCreator, text, timestamp, uuid } from "drizzle-orm/pg-core";
+import {
+  integer,
+  pgTableCreator,
+  text,
+  timestamp,
+  uuid,
+} from "drizzle-orm/pg-core";
 
 export const createTable = pgTableCreator((name) => `coderdojobraga_${name}`);
 
@@ -10,8 +16,8 @@ export const users = createTable("user", {
 });
 
 export const usersRelation = relations(users, ({ many }) => ({
-  ninjas: many(ninjas)
-}))
+  ninjas: many(ninjas),
+}));
 
 /* -------------------------------------------------------------------------------- */
 
@@ -30,14 +36,16 @@ export const sessions = createTable("session", {
 
 export const ninjas = createTable("ninjas", {
   id: uuid("id").defaultRandom().primaryKey(),
-  guardionId: text("guardion_id").notNull().references(() => users.id),
+  guardionId: text("guardion_id")
+    .notNull()
+    .references(() => users.id),
   name: text("name").notNull(),
   age: integer("age"),
-})
+});
 
 export const ninjasRelations = relations(ninjas, ({ one }) => ({
   guardion: one(users, {
     fields: [ninjas.guardionId],
-    references: [users.id]
-  })
-}))
+    references: [users.id],
+  }),
+}));
