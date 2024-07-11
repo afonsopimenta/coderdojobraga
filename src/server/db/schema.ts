@@ -1,6 +1,7 @@
 import { relations } from "drizzle-orm";
 import {
   integer,
+  pgEnum,
   pgTableCreator,
   text,
   timestamp,
@@ -9,13 +10,18 @@ import {
 
 export const createTable = pgTableCreator((name) => `coderdojobraga_${name}`);
 
+/* -------------------------------------------------------------------------------- */
+
+const userRoleEnum = pgEnum("user_role", ["guardion", "mentor", "admin"]);
+
 export const users = createTable("user", {
   id: text("id").primaryKey(),
   email: text("email").unique().notNull(),
   password: text("password").notNull(),
+  roles: userRoleEnum("roles").array().notNull(),
 });
 
-export const usersRelation = relations(users, ({ many }) => ({
+export const usersRelations = relations(users, ({ many }) => ({
   ninjas: many(ninjas),
 }));
 

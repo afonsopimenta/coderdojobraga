@@ -26,6 +26,7 @@ export const signUpAction = async (formData: FormData) => {
     id: userId,
     email: email,
     password: hashedPassword,
+    roles: ["guardion"],
   });
 
   const session = await lucia.createSession(userId, {});
