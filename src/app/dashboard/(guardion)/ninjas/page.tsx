@@ -1,26 +1,22 @@
 import { redirect } from "next/navigation";
-import { eq } from "drizzle-orm";
 
-import { validateRequest } from "~/server/auth";
-import { db } from "~/server/db";
-import { ninjas } from "~/server/db/schema";
-import { createNinjaAction } from "./actions";
+import { getNinjasFromUserId } from "~/data-access/ninjas";
+import { getCurrentUser } from "~/lib/session";
+import { registerNinjaAction } from "./actions";
 
 const NinjasPage = async () => {
-  const { user } = await validateRequest();
+  const user = await getCurrentUser();
   if (!user) redirect("/sign-in");
 
-  const createNinjaActionWithGuardionId = createNinjaAction.bind(null, user.id);
+  const createNinjaActionWithUserId = registerNinjaAction.bind(null, user.id);
 
-  const guardionNinjas = await db.query.ninjas.findMany({
-    where: eq(ninjas.guardionId, user.id),
-  });
+  const userNinjas = await getNinjasFromUserId(user.id);
 
   return (
     <main className="container min-h-dvh space-y-8">
       <div className="space-y-2">
         <h2>Registar ninja</h2>
-        <form action={createNinjaActionWithGuardionId} className="space-y-2">
+        <form action={createNinjaActionWithUserId} className="space-y-2">
           <label htmlFor="name">Nome</label>
           <input
             name="name"
@@ -44,7 +40,7 @@ const NinjasPage = async () => {
       <div className="space-y-2">
         <h2>Ninjas</h2>
         <ul className="space-y-2">
-          {guardionNinjas.map((ninja) => (
+          {userNinjas.map((ninja) => (
             <li key={ninja.id}>
               <p>Nome: {ninja.name}</p>
               <p>Idade: {ninja.age}</p>

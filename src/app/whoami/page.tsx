@@ -1,7 +1,7 @@
-import { validateRequest } from "~/server/auth";
+import { getCurrentUser } from "~/lib/session";
 
 const WhoAmIPage = async () => {
-  const { user } = await validateRequest();
+  const user = await getCurrentUser();
 
   if (!user) {
     return (
