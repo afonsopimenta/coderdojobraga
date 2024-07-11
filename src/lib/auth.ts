@@ -17,6 +17,7 @@ export const lucia = new Lucia(adapter, {
   getUserAttributes: (attributes) => {
     return {
       email: attributes.email,
+      roles: attributes.roles,
     };
   },
 });
@@ -30,6 +31,7 @@ declare module "lucia" {
 
 type DatabaseUserAttributes = {
   email: string;
+  roles: ("guardion" | "mentor" | "admin")[];
 };
 
 export const validateRequest = async (): Promise<

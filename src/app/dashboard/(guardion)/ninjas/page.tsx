@@ -8,15 +8,13 @@ const NinjasPage = async () => {
   const user = await getCurrentUser();
   if (!user) redirect("/sign-in");
 
-  const createNinjaActionWithUserId = registerNinjaAction.bind(null, user.id);
-
   const userNinjas = await getNinjasFromUserId(user.id);
 
   return (
     <main className="container min-h-dvh space-y-8">
       <div className="space-y-2">
         <h2>Registar ninja</h2>
-        <form action={createNinjaActionWithUserId} className="space-y-2">
+        <form action={registerNinjaAction} className="space-y-2">
           <label htmlFor="name">Nome</label>
           <input
             name="name"

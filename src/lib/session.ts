@@ -2,6 +2,12 @@ import { cache } from "react";
 import { cookies } from "next/headers";
 import { type Session } from "lucia";
 
+import {
+  AuthenticationError,
+  NotAdminError,
+  NotGuardionError,
+  NotMentorError,
+} from "~/use-cases/errors";
 import { lucia, validateRequest } from "./auth";
 
 export const getCurrentUser = cache(async () => {
@@ -9,6 +15,30 @@ export const getCurrentUser = cache(async () => {
   if (!user) return undefined;
   return user;
 });
+
+export const assertAuthenticated = async () => {
+  const user = await getCurrentUser();
+  if (!user) throw new AuthenticationError();
+  return user;
+};
+
+export const assertGuardion = async () => {
+  const user = await assertAuthenticated();
+  if (!user.roles.includes("guardion")) throw new NotGuardionError();
+  return user;
+};
+
+export const assertMentor = async () => {
+  const user = await assertAuthenticated();
+  if (!user.roles.includes("mentor")) throw new NotMentorError();
+  return user;
+};
+
+export const assertAdmin = async () => {
+  const user = await assertAuthenticated();
+  if (!user.roles.includes("admin")) throw new NotAdminError();
+  return user;
+};
 
 export const setSession = async (userId: string) => {
   const session = await lucia.createSession(userId, {});
