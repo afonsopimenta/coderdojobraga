@@ -7,7 +7,7 @@ import { unauthenticatedAction } from "~/lib/safe-action";
 import { setSession } from "~/lib/session";
 import { registerUserUseCase } from "~/use-cases/users";
 
-export const signInAction = unauthenticatedAction
+export const signUpAction = unauthenticatedAction
   .createServerAction()
   .input(
     z.object({
