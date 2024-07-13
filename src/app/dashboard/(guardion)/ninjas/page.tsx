@@ -1,14 +1,15 @@
 import { redirect } from "next/navigation";
 
-import { getNinjasFromUserId } from "~/data-access/ninjas";
+import { getTrackedNinjasFromUserId } from "~/data-access/ninjas";
 import { getCurrentUser } from "~/lib/session";
+import { NinjaList } from "./_components/ninja_list";
 import { registerNinjaAction } from "./actions";
 
 const NinjasPage = async () => {
   const user = await getCurrentUser();
   if (!user) redirect("/sign-in");
 
-  const userNinjas = await getNinjasFromUserId(user.id);
+  const userNinjas = await getTrackedNinjasFromUserId(user.id);
 
   return (
     <main className="container min-h-dvh space-y-8">
@@ -35,17 +36,7 @@ const NinjasPage = async () => {
           </button>
         </form>
       </div>
-      <div className="space-y-2">
-        <h2>Ninjas</h2>
-        <ul className="space-y-2">
-          {userNinjas.map((ninja) => (
-            <li key={ninja.id}>
-              <p>Nome: {ninja.name}</p>
-              <p>Idade: {ninja.age}</p>
-            </li>
-          ))}
-        </ul>
-      </div>
+      <NinjaList ninjas={userNinjas} />
     </main>
   );
 };

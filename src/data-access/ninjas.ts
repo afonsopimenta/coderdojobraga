@@ -1,4 +1,4 @@
-import { eq } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 
 import { db } from "~/db";
 import { ninjasTable } from "~/db/schema";
@@ -20,10 +20,23 @@ export const createNinja = async (
   return createdNinja!;
 };
 
-export const getNinjasFromUserId = async (userId: string) => {
-  const ninjas = db.query.ninjasTable.findMany({
-    where: eq(ninjasTable.guardionId, userId),
+export const getTrackedNinjasFromUserId = async (userId: string) => {
+  const ninjas = await db.query.ninjasTable.findMany({
+    where: and(
+      eq(ninjasTable.guardionId, userId),
+      eq(ninjasTable.isCurrentlyTracked, true),
+    ),
   });
 
   return ninjas;
+};
+
+export const untrackNinja = async (ninjaId: string) => {
+  const [untrackedNinja] = await db
+    .update(ninjasTable)
+    .set({ isCurrentlyTracked: false })
+    .where(eq(ninjasTable.id, ninjaId))
+    .returning();
+
+  return untrackedNinja;
 };

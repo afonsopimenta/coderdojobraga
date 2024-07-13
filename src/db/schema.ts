@@ -1,5 +1,6 @@
 import { relations } from "drizzle-orm";
 import {
+  boolean,
   index,
   integer,
   pgEnum,
@@ -53,7 +54,8 @@ export const ninjasTable = createTable(
       .notNull()
       .references(() => usersTable.id),
     name: text("name").notNull(),
-    age: integer("age"),
+    age: integer("age").notNull(),
+    isCurrentlyTracked: boolean("is_currently_tracked").notNull().default(true),
   },
   (table) => ({
     guardionIdIdx: index("guardion_id_idx").on(table.guardionId),
