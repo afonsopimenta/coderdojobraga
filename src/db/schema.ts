@@ -1,8 +1,5 @@
-import { relations, sql } from "drizzle-orm";
+import { sql } from "drizzle-orm";
 import {
-  boolean,
-  index,
-  integer,
   pgEnum,
   pgTableCreator,
   text,
@@ -30,10 +27,6 @@ export const usersTable = createTable("users", {
     .default(sql`ARRAY[]::text[]`),
 });
 
-export const usersRelations = relations(usersTable, ({ many }) => ({
-  ninjas: many(ninjasTable),
-}));
-
 /* -------------------------------------------------------------------------------- */
 
 export const sessionsTable = createTable("sessions", {
@@ -46,28 +39,3 @@ export const sessionsTable = createTable("sessions", {
     mode: "date",
   }).notNull(),
 });
-
-/* -------------------------------------------------------------------------------- */
-
-export const ninjasTable = createTable(
-  "ninjas",
-  {
-    id: uuid("id").defaultRandom().primaryKey(),
-    guardionId: uuid("guardion_id")
-      .notNull()
-      .references(() => usersTable.id),
-    name: text("name").notNull(),
-    age: integer("age").notNull(),
-    isCurrentlyTracked: boolean("is_currently_tracked").notNull().default(true),
-  },
-  (table) => ({
-    guardionIdIdx: index("guardion_id_idx").on(table.guardionId),
-  }),
-);
-
-export const ninjasRelations = relations(ninjasTable, ({ one }) => ({
-  guardion: one(usersTable, {
-    fields: [ninjasTable.guardionId],
-    references: [usersTable.id],
-  }),
-}));
