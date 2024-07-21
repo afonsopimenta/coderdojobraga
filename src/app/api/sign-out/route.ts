@@ -1,13 +1,17 @@
 import { redirect } from "next/navigation";
 
-import { validateRequest } from "~/lib/auth";
-import { deleteSession } from "~/lib/session";
+import {
+  createAndSetBlankSessionCookie,
+  invalidateSession,
+  validateRequest,
+} from "~/lib/session";
 
 export const GET = async () => {
   const { session } = await validateRequest();
   if (!session) return redirect("/sign-in");
 
-  await deleteSession(session);
+  await invalidateSession(session.id);
+  await createAndSetBlankSessionCookie();
 
   return redirect("/");
 };

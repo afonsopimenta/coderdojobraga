@@ -1,6 +1,5 @@
-import { cookies } from "next/headers";
 import { DrizzlePostgreSQLAdapter } from "@lucia-auth/adapter-drizzle";
-import { Lucia, type Session, type User } from "lucia";
+import { Lucia } from "lucia";
 
 import { db } from "~/db";
 import { sessionsTable, usersTable } from "~/db/schema";
@@ -32,39 +31,4 @@ declare module "lucia" {
 type DatabaseUserAttributes = {
   email: string;
   roles: ("guardion" | "mentor" | "admin")[];
-};
-
-export const validateRequest = async (): Promise<
-  { user: User; session: Session } | { user: null; session: null }
-> => {
-  const sessionId = cookies().get(lucia.sessionCookieName)?.value ?? null;
-  if (!sessionId) {
-    return {
-      user: null,
-      session: null,
-    };
-  }
-
-  const result = await lucia.validateSession(sessionId);
-
-  try {
-    if (result.session?.fresh) {
-      const sessionCookie = lucia.createSessionCookie(result.session.id);
-      cookies().set(
-        sessionCookie.name,
-        sessionCookie.value,
-        sessionCookie.attributes,
-      );
-    }
-    if (!result.session) {
-      const sessionCookie = lucia.createBlankSessionCookie();
-      cookies().set(
-        sessionCookie.name,
-        sessionCookie.value,
-        sessionCookie.attributes,
-      );
-    }
-  } catch {}
-
-  return result;
 };

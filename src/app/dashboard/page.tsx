@@ -1,9 +1,9 @@
 import { redirect } from "next/navigation";
 
-import { getCurrentUser } from "~/lib/session";
+import { validateRequest } from "~/lib/session";
 
 const DashboardPage = async () => {
-  const user = await getCurrentUser();
+  const { user } = await validateRequest();
   if (!user) redirect("/sign-in");
 
   return (

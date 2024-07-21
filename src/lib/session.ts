@@ -1,48 +1,38 @@
 import { cache } from "react";
 import { cookies } from "next/headers";
-import { type Session } from "lucia";
 
-import {
-  AuthenticationError,
-  NotAdminError,
-  NotGuardionError,
-  NotMentorError,
-} from "~/use-cases/errors";
-import { lucia, validateRequest } from "./auth";
+import { lucia } from "./auth";
 
-export const getCurrentUser = cache(async () => {
-  const { user } = await validateRequest();
-  if (!user) return undefined;
-  return user;
+export const validateRequest = cache(async () => {
+  const sessionId = cookies().get(lucia.sessionCookieName)?.value ?? null;
+  if (!sessionId) return { user: null, session: null };
+
+  const result = await lucia.validateSession(sessionId);
+
+  try {
+    if (result.session?.fresh) {
+      await createAndSetSessionCookie(result.session.id);
+    }
+
+    if (!result.session) {
+      await createAndSetBlankSessionCookie();
+    }
+  } catch {}
+
+  return result;
 });
 
-export const assertAuthenticated = async () => {
-  const user = await getCurrentUser();
-  if (!user) throw new AuthenticationError();
-  return user;
-};
-
-export const assertGuardion = async () => {
-  const user = await assertAuthenticated();
-  if (!user.roles.includes("guardion")) throw new NotGuardionError();
-  return user;
-};
-
-export const assertMentor = async () => {
-  const user = await assertAuthenticated();
-  if (!user.roles.includes("mentor")) throw new NotMentorError();
-  return user;
-};
-
-export const assertAdmin = async () => {
-  const user = await assertAuthenticated();
-  if (!user.roles.includes("admin")) throw new NotAdminError();
-  return user;
-};
-
-export const setSession = async (userId: string) => {
+export const createSession = async (userId: string) => {
   const session = await lucia.createSession(userId, {});
-  const sessionCookie = lucia.createSessionCookie(session.id);
+  return session;
+};
+
+export const invalidateSession = async (sessionId: string) => {
+  await lucia.invalidateSession(sessionId);
+};
+
+export const createAndSetSessionCookie = async (sessionId: string) => {
+  const sessionCookie = lucia.createSessionCookie(sessionId);
   cookies().set(
     sessionCookie.name,
     sessionCookie.value,
@@ -50,8 +40,7 @@ export const setSession = async (userId: string) => {
   );
 };
 
-export const deleteSession = async (session: Session) => {
-  await lucia.invalidateSession(session.id);
+export const createAndSetBlankSessionCookie = async () => {
   const sessionCookie = lucia.createBlankSessionCookie();
   cookies().set(
     sessionCookie.name,

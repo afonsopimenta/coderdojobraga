@@ -1,4 +1,4 @@
-import { relations } from "drizzle-orm";
+import { relations, sql } from "drizzle-orm";
 import {
   boolean,
   index,
@@ -24,7 +24,10 @@ export const usersTable = createTable("users", {
   id: uuid("id").defaultRandom().primaryKey(),
   email: text("email").unique().notNull(),
   password: text("password").notNull(),
-  roles: userRoleEnum("roles").array().notNull(),
+  roles: userRoleEnum("roles")
+    .array()
+    .notNull()
+    .default(sql`ARRAY[]::text[]`),
 });
 
 export const usersRelations = relations(usersTable, ({ many }) => ({
