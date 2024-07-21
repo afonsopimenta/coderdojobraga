@@ -24,7 +24,7 @@ export const usersTable = createTable("users", {
   roles: userRoleEnum("roles")
     .array()
     .notNull()
-    .default(sql`ARRAY[]::text[]`),
+    .default(sql`ARRAY[]::user_role[]`),
 });
 
 /* -------------------------------------------------------------------------------- */
