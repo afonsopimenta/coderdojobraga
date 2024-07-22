@@ -1,30 +1,23 @@
 "use server";
 
 import { redirect } from "next/navigation";
-import { z } from "zod";
+import { ZSAError } from "zsa";
 
 import { db } from "~/db";
 import { usersTable } from "~/db/schema";
 import { hashPassword } from "~/lib/password";
 import { unauthenticatedAction } from "~/lib/server-action-procedures";
 import { createAndSetSessionCookie, createSession } from "~/lib/session";
+import { signUpSchema } from "./sign-up-schema";
 
 export const signUpAction = unauthenticatedAction
   .createServerAction()
-  .input(
-    z.object({
-      email: z.string().email(),
-      password: z.string().min(8),
-    }),
-    {
-      type: "formData",
-    },
-  )
+  .input(signUpSchema)
   .handler(async ({ input }) => {
     const existingUser = await db.query.usersTable.findFirst({
       where: (table, { eq }) => eq(table.email, input.email),
     });
-    if (existingUser) throw "Utilizador já existe";
+    if (existingUser) throw new ZSAError("CONFLICT", "Utilizador já existe");
 
     const hashedPassword = await hashPassword(input.password);
 
@@ -36,5 +29,5 @@ export const signUpAction = unauthenticatedAction
     const session = await createSession(createdUser!.id);
     await createAndSetSessionCookie(session.id);
 
-    return redirect("/dashboard");
+    redirect("/dashboard");
   });
