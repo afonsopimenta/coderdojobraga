@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@hookform/resolvers':
+        specifier: ^3.9.0
+        version: 3.9.0(react-hook-form@7.52.1(react@19.0.0-rc-512b09b2-20240718))
       '@lucia-auth/adapter-drizzle':
         specifier: ^1.0.7
         version: 1.0.7(lucia@3.2.0)
@@ -38,6 +41,9 @@ importers:
       lucia:
         specifier: ^3.2.0
         version: 3.2.0
+      lucide-react:
+        specifier: ^0.414.0
+        version: 0.414.0(react@19.0.0-rc-512b09b2-20240718)
       next:
         specifier: 15.0.0-rc.0
         version: 15.0.0-rc.0(@babel/core@7.24.9)(react-dom@19.0.0-rc-512b09b2-20240718(react@19.0.0-rc-512b09b2-20240718))(react@19.0.0-rc-512b09b2-20240718)
@@ -50,6 +56,9 @@ importers:
       react-dom:
         specifier: 19.0.0-rc-512b09b2-20240718
         version: 19.0.0-rc-512b09b2-20240718(react@19.0.0-rc-512b09b2-20240718)
+      react-hook-form:
+        specifier: ^7.52.1
+        version: 7.52.1(react@19.0.0-rc-512b09b2-20240718)
       tailwind-merge:
         specifier: ^2.4.0
         version: 2.4.0
@@ -520,6 +529,11 @@ packages:
   '@eslint/js@8.57.0':
     resolution: {integrity: sha512-Ys+3g2TaW7gADOJzPt83SJtCDhMjndcDMFVQ/Tj9iA1BfJzFKD9mAUXT3OenpuPHbI6P/myECxRJrofUsDx/5g==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
+
+  '@hookform/resolvers@3.9.0':
+    resolution: {integrity: sha512-bU0Gr4EepJ/EQsH/IwEzYLsT/PEj5C0ynLQ4m+GSHS+xKH4TfSelhluTgOaoc4kA5s7eCsQbM4wvZLzELmWzUg==}
+    peerDependencies:
+      react-hook-form: ^7.0.0
 
   '@humanwhocodes/config-array@0.11.14':
     resolution: {integrity: sha512-3T8LkOmg45BV5FICb15QQMsyUSWrQ8AygVfC7ZG32zOalnqrilm018ZVCw0eapXux8FtA33q8PSRSstjee3jSg==}
@@ -2169,6 +2183,11 @@ packages:
   lucia@3.2.0:
     resolution: {integrity: sha512-eXMxXwk6hqtjRTj4W/x3EnTUtAztLPm0p2N2TEBMDEbakDLXiYnDQ9z/qahjPdPdhPguQc+vwO0/88zIWxlpuw==}
 
+  lucide-react@0.414.0:
+    resolution: {integrity: sha512-Krr/MHg9AWoJc52qx8hyJ64X9++JNfS1wjaJviLM1EP/68VNB7Tv0VMldLCB1aUe6Ka9QxURPhQm/eB6cqOM3A==}
+    peerDependencies:
+      react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
+
   memfs-browser@3.5.10302:
     resolution: {integrity: sha512-JJTc/nh3ig05O0gBBGZjTCPOyydaTxNF0uHYBrcc1gHNnO+KIHIvo0Y1FKCJsaei6FCl8C6xfQomXqu+cuzkIw==}
 
@@ -2478,6 +2497,12 @@ packages:
     resolution: {integrity: sha512-qoTgXrHKBldyVk06n+QXV4wDwUbpeYC3xT6FC6dFYAWas8qCXIdc/6teUQ0ztqc+b3JSMVGri9jjblPQ4AQgEg==}
     peerDependencies:
       react: 19.0.0-rc-512b09b2-20240718
+
+  react-hook-form@7.52.1:
+    resolution: {integrity: sha512-uNKIhaoICJ5KQALYZ4TOaOLElyM+xipord+Ha3crEFhTntdLvWZqVY49Wqd/0GiVCA/f9NjemLeiNPjG7Hpurg==}
+    engines: {node: '>=12.22.0'}
+    peerDependencies:
+      react: ^16.8.0 || ^17 || ^18 || ^19
 
   react-is@16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
@@ -3170,6 +3195,10 @@ snapshots:
       - supports-color
 
   '@eslint/js@8.57.0': {}
+
+  '@hookform/resolvers@3.9.0(react-hook-form@7.52.1(react@19.0.0-rc-512b09b2-20240718))':
+    dependencies:
+      react-hook-form: 7.52.1(react@19.0.0-rc-512b09b2-20240718)
 
   '@humanwhocodes/config-array@0.11.14':
     dependencies:
@@ -4882,6 +4911,10 @@ snapshots:
     dependencies:
       oslo: 1.2.0
 
+  lucide-react@0.414.0(react@19.0.0-rc-512b09b2-20240718):
+    dependencies:
+      react: 19.0.0-rc-512b09b2-20240718
+
   memfs-browser@3.5.10302:
     dependencies:
       memfs: 3.5.3
@@ -5130,6 +5163,10 @@ snapshots:
     dependencies:
       react: 19.0.0-rc-512b09b2-20240718
       scheduler: 0.25.0-rc-512b09b2-20240718
+
+  react-hook-form@7.52.1(react@19.0.0-rc-512b09b2-20240718):
+    dependencies:
+      react: 19.0.0-rc-512b09b2-20240718
 
   react-is@16.13.1: {}
 

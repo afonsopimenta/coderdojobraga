@@ -2,10 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import backgroundImage from "~/assets/images/image1.jpg";
-import { Button } from "~/components/ui/button";
-import { Input } from "~/components/ui/input";
-import { Label } from "~/components/ui/label";
-import { signInAction } from "./actions";
+import { SignInForm } from "./_components/sign-in-form";
 
 const SignInPage = () => {
   return (
@@ -17,23 +14,7 @@ const SignInPage = () => {
             Introduza o seu email para efetuar login
           </p>
         </div>
-        <form action={signInAction} className="grid gap-4">
-          <div className="space-y-2">
-            <Label htmlFor="email" className="m-0">
-              Email
-            </Label>
-            <Input type="email" name="email" id="email" />
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="password" className="m-0">
-              Password
-            </Label>
-            <Input type="password" name="password" id="password" />
-          </div>
-          <Button type="submit" className="w-full">
-            Continuar
-          </Button>
-        </form>
+        <SignInForm />
         <p className="text-balance text-center text-sm">
           Ainda não tem conta?{" "}
           <Link href="/sign-up" className="underline">
