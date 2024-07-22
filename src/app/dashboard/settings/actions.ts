@@ -12,7 +12,6 @@ export const updateUserInfoAction = authenticatedAction
   .createServerAction()
   .input(
     z.object({
-      email: z.string().email(),
       fullName: z.string(),
       phoneNumber: z.union([
         z.string().regex(/^(\+?351)?9\d\d{7}$/),
@@ -27,7 +26,6 @@ export const updateUserInfoAction = authenticatedAction
     await db
       .update(usersTable)
       .set({
-        email: input.email,
         fullName: input.fullName == "" ? null : input.fullName,
         phoneNumber: input.phoneNumber == "" ? null : input.phoneNumber,
       })

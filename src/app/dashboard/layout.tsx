@@ -16,9 +16,9 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
   return (
     <div className="grid min-h-dvh w-full grid-rows-[auto_1fr] md:grid-cols-[13.75rem_1fr] md:grid-rows-none lg:grid-cols-[17.5rem_1fr]">
       <div className="hidden max-h-dvh border-r border-zinc-300 bg-zinc-50 md:block">
-        <div className="border-b border-zinc-300 p-4">
+        <div className="flex h-24 items-center border-b border-zinc-300 p-4">
           <Link href="/">
-            <LogoLetteringDark className="w-3/4" />
+            <LogoLetteringDark className="w-5/6" />
           </Link>
         </div>
         <DashboardNavDesktop />
