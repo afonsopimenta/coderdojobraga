@@ -12,6 +12,9 @@ const config = {
       },
     },
     extend: {
+      screens: {
+        xs: "512px",
+      },
       keyframes: {
         "accordion-down": {
           from: { height: "0" },

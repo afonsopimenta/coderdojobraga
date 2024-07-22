@@ -19,32 +19,35 @@ const SettingsPage = async () => {
       <Separator />
       <section className="space-y-6 pt-4">
         <h2 className="text-xl font-medium">Perfil</h2>
-        <p className="flex items-center gap-2">
-          <span className="text-sm font-medium leading-none">Email</span>
-          <span className="flex h-9 w-fit items-center rounded-md border border-zinc-200 bg-transparent px-3 py-1 text-sm shadow-sm">
+        <div className="flex flex-wrap items-center gap-2">
+          <h3 className="text-sm font-medium leading-none">Email</h3>
+          <p className="flex h-9 w-full items-center rounded-md border border-zinc-200 bg-transparent px-3 py-1 text-sm shadow-sm xs:w-fit">
             {user.email}
-          </span>
-        </p>
+          </p>
+          <Button variant="outline" className="w-full xs:w-fit">
+            Solicitar alteração de email
+          </Button>
+        </div>
         <form action={updateUserInfoAction} className="grid gap-6">
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center gap-2">
             <Label htmlFor="full-name">Nome Completo</Label>
             <Input
               id="full-name"
               name="fullName"
               defaultValue={user.fullName ?? ""}
-              className="max-w-80"
+              className="xs:max-w-80"
             />
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center gap-2">
             <Label htmlFor="phone-number">Contacto Telefónico</Label>
             <Input
               id="phone-number"
               name="phoneNumber"
               defaultValue={user.phoneNumber ?? ""}
-              className="max-w-40"
+              className="xs:max-w-40"
             />
           </div>
-          <Button type="submit" className="w-fit">
+          <Button type="submit" className="xs:w-fit">
             Guardar alterações
           </Button>
         </form>
