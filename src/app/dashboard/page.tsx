@@ -7,7 +7,7 @@ const DashboardPage = async () => {
   if (!user) redirect("/sign-in");
 
   return (
-    <main className="container grid min-h-dvh place-content-center gap-4 text-center">
+    <main className="container grid place-content-center gap-4 text-center">
       <h1 className="text-6xl font-bold">CoderDojo Braga</h1>
       <h2 className="text-4xl">Dashboard</h2>
       <p>Welcome, {user.email}</p>
