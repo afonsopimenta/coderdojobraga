@@ -13,8 +13,6 @@ export const signInAction = unauthenticatedAction
   .createServerAction()
   .input(signInSchema)
   .handler(async ({ input }) => {
-    await new Promise((resolve) => setTimeout(resolve, 5000));
-
     const user = await db.query.usersTable.findFirst({
       where: (table, { eq }) => eq(table.email, input.email),
     });
