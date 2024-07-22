@@ -16,6 +16,8 @@ export const lucia = new Lucia(adapter, {
   getUserAttributes: (attributes) => {
     return {
       email: attributes.email,
+      fullName: attributes.fullName,
+      phoneNumber: attributes.phoneNumber,
       roles: attributes.roles,
     };
   },
@@ -24,11 +26,6 @@ export const lucia = new Lucia(adapter, {
 declare module "lucia" {
   interface Register {
     Lucia: typeof lucia;
-    DatabaseUserAttributes: DatabaseUserAttributes;
+    DatabaseUserAttributes: typeof usersTable.$inferSelect;
   }
 }
-
-type DatabaseUserAttributes = {
-  email: string;
-  roles: ("guardion" | "mentor" | "admin")[];
-};

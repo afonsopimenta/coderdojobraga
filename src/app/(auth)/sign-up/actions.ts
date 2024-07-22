@@ -6,7 +6,7 @@ import { z } from "zod";
 import { db } from "~/db";
 import { usersTable } from "~/db/schema";
 import { hashPassword } from "~/lib/password";
-import { unauthenticatedAction } from "~/lib/safe-action";
+import { unauthenticatedAction } from "~/lib/server-action-procedures";
 import { createAndSetSessionCookie, createSession } from "~/lib/session";
 
 export const signUpAction = unauthenticatedAction

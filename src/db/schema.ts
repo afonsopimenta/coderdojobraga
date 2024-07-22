@@ -21,6 +21,8 @@ export const usersTable = createTable("users", {
   id: uuid("id").defaultRandom().primaryKey(),
   email: text("email").unique().notNull(),
   password: text("password").notNull(),
+  fullName: text("full_name"),
+  phoneNumber: text("phone_number"),
   roles: userRoleEnum("roles")
     .array()
     .notNull()
