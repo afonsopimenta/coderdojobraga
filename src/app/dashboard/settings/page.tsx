@@ -17,14 +17,14 @@ const SettingsPage = async () => {
         <h1 className="text-2xl font-bold">Definições</h1>
       </div>
       <Separator />
-      <section className="space-y-6 pt-4">
+      <section className="space-y-6 pt-8">
         <h2 className="text-xl font-medium">Perfil</h2>
         <div className="flex flex-wrap items-center gap-2">
           <h3 className="text-sm font-medium leading-none">Email</h3>
-          <p className="flex h-9 w-full items-center rounded-md border border-zinc-200 bg-transparent px-3 py-1 text-sm shadow-sm xs:w-fit">
+          <p className="xs:w-fit flex h-9 w-full items-center rounded-md border border-zinc-200 bg-transparent px-3 py-1 text-sm shadow-sm">
             {user.email}
           </p>
-          <Button variant="outline" className="w-full xs:w-fit">
+          <Button variant="outline" className="xs:w-fit w-full">
             Solicitar alteração de email
           </Button>
         </div>
