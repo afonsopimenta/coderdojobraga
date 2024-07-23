@@ -51,7 +51,7 @@ export const ProfileSettingsForm = ({ user }: ProfileSettingsFormProps) => {
           control={form.control}
           name="fullName"
           render={({ field }) => (
-            <FormItem className="flex flex-wrap items-center gap-2">
+            <FormItem className="flex flex-wrap items-center gap-2 space-y-0">
               <FormLabel>Nome Completo</FormLabel>
               <FormControl>
                 <Input className="xs:max-w-80" {...field} />
@@ -64,7 +64,7 @@ export const ProfileSettingsForm = ({ user }: ProfileSettingsFormProps) => {
           control={form.control}
           name="phoneNumber"
           render={({ field }) => (
-            <FormItem className="flex flex-wrap items-center gap-2">
+            <FormItem className="flex flex-wrap items-center gap-2 space-y-0">
               <FormLabel>Contacto Telefónico</FormLabel>
               <FormControl>
                 <Input className="xs:max-w-40" {...field} />
