@@ -2,26 +2,15 @@
 
 import { revalidatePath } from "next/cache";
 import { eq } from "drizzle-orm";
-import { z } from "zod";
 
 import { db } from "~/db";
 import { usersTable } from "~/db/schema";
 import { authenticatedAction } from "~/lib/server-action-procedures";
+import { profileSettingsSchema } from "./profile-settings-schema";
 
 export const updateUserInfoAction = authenticatedAction
   .createServerAction()
-  .input(
-    z.object({
-      fullName: z.string(),
-      phoneNumber: z.union([
-        z.string().regex(/^(\+?351)?9\d\d{7}$/),
-        z.literal(""),
-      ]),
-    }),
-    {
-      type: "formData",
-    },
-  )
+  .input(profileSettingsSchema)
   .handler(async ({ input, ctx }) => {
     await db
       .update(usersTable)
