@@ -8,6 +8,7 @@
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
     "db:push": "drizzle-kit push",
+    "db:seed": "dotenv tsx src/db/seed.ts",
     "db:studio": "drizzle-kit studio",
     "dev": "next dev --turbo",
     "format": "prettier --write .",
@@ -36,6 +37,7 @@
     "react-hook-form": "^7.52.1",
     "tailwind-merge": "^2.4.0",
     "tailwindcss-animate": "^1.0.7",
+    "tsx": "^4.16.2",
     "zod": "^3.23.8",
     "zsa": "^0.5.1",
     "zsa-react": "^0.2.2"
@@ -48,6 +50,7 @@
     "@types/react-dom": "^18.3.0",
     "@typescript-eslint/eslint-plugin": "^7.16.1",
     "@typescript-eslint/parser": "^7.16.1",
+    "dotenv-cli": "^7.4.2",
     "drizzle-kit": "^0.23.0",
     "eslint": "^8.57.0",
     "eslint-config-next": "15.0.0-rc.0",
