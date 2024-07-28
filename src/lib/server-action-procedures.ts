@@ -1,4 +1,4 @@
-import { createServerActionProcedure } from "zsa";
+import { createServerActionProcedure, ZSAError } from "zsa";
 
 import { validateRequest } from "./session";
 
@@ -11,7 +11,12 @@ export const unauthenticatedAction = createServerActionProcedure().handler(
 export const authenticatedAction = createServerActionProcedure().handler(
   async () => {
     const { user } = await validateRequest();
-    if (!user) throw "É necessário estar autenticado para realizar esta ação";
+    if (!user) {
+      throw new ZSAError(
+        "NOT_AUTHORIZED",
+        "É necessário estar autenticado para realizar esta ação",
+      );
+    }
 
     return { user };
   },
