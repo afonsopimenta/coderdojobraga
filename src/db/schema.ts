@@ -41,3 +41,12 @@ export const sessionsTable = createTable("sessions", {
     mode: "date",
   }).notNull(),
 });
+
+/* -------------------------------------------------------------------------------- */
+
+export const dojoSessionsTable = createTable("dojo_sessions", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  title: text("title").notNull(),
+  startsAt: timestamp("starts_at", { mode: "date" }).notNull(),
+  endsAt: timestamp("ends_at", { mode: "date" }).notNull(),
+});
