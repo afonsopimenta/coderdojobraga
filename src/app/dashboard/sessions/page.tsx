@@ -1,7 +1,9 @@
+import Link from "next/link";
 import { redirect } from "next/navigation";
 
 import { db } from "~/db";
 import { validateRequest } from "~/lib/session";
+import { isAdmin } from "~/lib/utils";
 
 const DojoSessionsPage = async () => {
   const { user } = await validateRequest();
@@ -10,7 +12,7 @@ const DojoSessionsPage = async () => {
   const dojoSessions = await db.query.dojoSessionsTable.findMany();
 
   return (
-    <main className="space-y-8">
+    <main className="container relative space-y-8">
       <h1>Sessões do dojo</h1>
       <ul className="space-y-6">
         {dojoSessions.map((dojoSession) => (
@@ -21,6 +23,14 @@ const DojoSessionsPage = async () => {
           </li>
         ))}
       </ul>
+      {isAdmin(user) && (
+        <Link
+          href="/dashboard/sessions/new"
+          className="absolute bottom-8 right-8"
+        >
+          Agendar sessão
+        </Link>
+      )}
     </main>
   );
 };
