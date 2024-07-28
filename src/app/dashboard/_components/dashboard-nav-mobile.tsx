@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useSelectedLayoutSegment } from "next/navigation";
-import { Home, Settings } from "lucide-react";
+import { CalendarDays, Home, Settings } from "lucide-react";
 
 import { SheetClose } from "~/components/ui/sheet";
 import { cn } from "~/lib/utils";
@@ -22,6 +22,18 @@ export const DashboardNavMobile = () => {
         >
           <Home className="size-4" />
           Dashboard
+        </Link>
+      </SheetClose>
+      <SheetClose asChild>
+        <Link
+          href="/dashboard/sessions"
+          className={cn(
+            "flex items-center gap-3 rounded-lg px-3 py-2 transition-colors",
+            selectedSegment === "sessions" && "bg-zinc-100 text-black",
+          )}
+        >
+          <CalendarDays className="size-4" />
+          Sessões
         </Link>
       </SheetClose>
       <SheetClose asChild>

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useSelectedLayoutSegment } from "next/navigation";
-import { Home, Settings } from "lucide-react";
+import { CalendarDays, Home, Settings } from "lucide-react";
 
 import { cn } from "~/lib/utils";
 
@@ -20,6 +20,16 @@ export const DashboardNavDesktop = () => {
       >
         <Home className="size-4" />
         Dashboard
+      </Link>
+      <Link
+        href="/dashboard/sessions"
+        className={cn(
+          "flex items-center gap-3 rounded-lg px-3 py-2 transition-colors hover:text-black",
+          selectedSegment === "sessions" && "bg-zinc-100 text-black",
+        )}
+      >
+        <CalendarDays className="size-4" />
+        Sessões
       </Link>
       <Link
         href="/dashboard/settings"
